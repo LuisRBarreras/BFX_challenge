@@ -3,13 +3,6 @@ const Link = require('grenache-nodejs-link')
 const { EVENT_NAMES, ORDER_TYPES } = require('../../utils')
 const { Order } = require('../models')
 
-// class RPCServer() {
-//   constructor() {
-
-//   }
-
-// }
-
 // TODO MOVE logic
 const clientId = 2
 const type = ORDER_TYPES.BUY

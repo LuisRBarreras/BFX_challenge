@@ -31,9 +31,8 @@ async function sellOrderDemo () {
       const orderFound =  new Order(clientId, type, tickerSymbol, units, marketPrice, goalPrice)
       orderBook.processOrder(orderFound)
     }
-
   } catch (error) {
-    console.error(error)
+    console.error(`Error on sellOrderDemo: ${JSON.stringify(error)}`)
     throw error
   }
 }

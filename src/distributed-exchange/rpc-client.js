@@ -35,21 +35,13 @@ class RPCClient {
       const promise = this.promisifyPeerRequest(this.peer, name, payload, config)
       const result = await promise
 
-      console.log({ result })
-      // TODO process order
       return result
     } catch (error) {
       console.error(`Error on Client sendEvent: ${JSON.stringify(event)}`)
       throw error
     }
 
-    // this.peer.request(name,  payload, config, (err, data) => {
-    //   if (err) {
-    //     console.error(err)
-    //     process.exit(-1)
-    //   }
-    //   console.log(data) // { msg: 'world' }
-    // })
+ 
   }
 }
 
