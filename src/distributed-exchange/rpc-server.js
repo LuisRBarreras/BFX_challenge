@@ -1,7 +1,7 @@
 const { PeerRPCServer } = require('grenache-nodejs-http')
 const Link = require('grenache-nodejs-link')
-const { EVENT_NAMES, ORDER_TYPES } = require('../utils')
-const { Order } = require('../models/order-book')
+const { EVENT_NAMES, ORDER_TYPES } = require('../../utils')
+const { Order } = require('../models')
 
 // class RPCServer() {
 //   constructor() {

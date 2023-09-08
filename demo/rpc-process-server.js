@@ -1,4 +1,4 @@
-const { RPCServer } = require('../distributed-exchange/rpc-server')
+const { RPCServer } = require('../src/distributed-exchange/rpc-server')
 
 function rpcProcessServer () {
   const server = new RPCServer()

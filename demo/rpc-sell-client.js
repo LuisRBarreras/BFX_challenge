@@ -1,7 +1,7 @@
 'use strict'
 
-const { RPCClient } = require('../distributed-exchange/rpc-client')
-const { OrderBook, Order } = require('../models/order-book')
+const { RPCClient } = require('../src/distributed-exchange/rpc-client')
+const { OrderBook, Order } = require('../src/models')
 const { getUniqueId, EVENT_NAMES, ORDER_TYPES } = require('../utils')
 
 async function sellOrderDemo () {
