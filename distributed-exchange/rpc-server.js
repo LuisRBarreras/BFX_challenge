@@ -13,12 +13,12 @@ const { Order } = require('../models/order-book')
 // TODO MOVE logic
 const clientId = 2
 const type = ORDER_TYPES.BUY
-const ticketSymbol = 'TSLA'
+const tickerSymbol = 'TSLA'
 const unit = 1
 const marketPrice = 1000
 const maxPrice = 999
 
-const demoBuyOrder = new Order(clientId, type, ticketSymbol, unit, marketPrice, maxPrice)
+const demoBuyOrder = new Order(clientId, type, tickerSymbol, unit, marketPrice, maxPrice)
 const listOrders = [demoBuyOrder]
 
 

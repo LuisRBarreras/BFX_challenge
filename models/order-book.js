@@ -56,6 +56,7 @@ class OrderBook {
       const transaction = new Transaction(foundSellOrder, externalBuyOrder, externalBuyOrder.maxPrice)
       this.history.push(transaction)
 
+
       // Delete order from sell
       this.sellOrders = this.sellOrders.filter(order => {
         return (order.orderId !== foundSellOrder.orderId)
@@ -68,9 +69,13 @@ class OrderBook {
   }
 
   processOrder (externalOrder) {
+    console.log('externalOrder', externalOrder.type)
+
     if (externalOrder.type === ORDER_TYPES.SELL) {
+      console.log('Processing sell order')
       this._processSellOrder(externalOrder)
     } else if (externalOrder.type === ORDER_TYPES.BUY) {
+      console.log('Processing buy order')
       this._processBuyOrder(externalOrder)
 
     }

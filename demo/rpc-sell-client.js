@@ -9,12 +9,12 @@ async function sellOrderDemo () {
   const orderBook = new OrderBook(clientId)
 
   const type = ORDER_TYPES.SELL
-  const ticketSymbol = 'TSLA'
+  const tickerSymbol = 'TSLA'
   const unit = 1
   const marketPrice = 1000
   const goalPrice = 999
 
-  const sellOrder = new Order(clientId, type, ticketSymbol, unit, marketPrice, goalPrice)
+  const sellOrder = new Order(clientId, type, tickerSymbol, unit, marketPrice, goalPrice)
 
   orderBook.addSell(sellOrder)
 
@@ -27,17 +27,10 @@ async function sellOrderDemo () {
   try {
     const result = await rpcClient.sendEvent(event)
     if(result.orderFound) {
-      console.log('clientOrderFound', result.orderFound)
-      const {clientId, type, ticketSymbol, units, marketPrice, goalPrice} = JSON.stringify(result.orderFound)
-      const orderFound =  new Order(clientId, type, ticketSymbol, unit, marketPrice, goalPrice)
+      const {clientId, type, tickerSymbol, units, marketPrice, goalPrice} = JSON.parse(result.orderFound)
+      const orderFound =  new Order(clientId, type, tickerSymbol, units, marketPrice, goalPrice)
       orderBook.processOrder(orderFound)
-      console.log(`SELL ORDER: ${JSON.stringify(orderBook.sellOrders)}`)
-      console.log(`History: ${JSON.stringify(orderBook.history)}`)
-
-
     }
-
-
 
   } catch (error) {
     console.error(error)
