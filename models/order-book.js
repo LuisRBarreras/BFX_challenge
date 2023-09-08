@@ -1,7 +1,5 @@
 const { getUniqueId, ORDER_TYPES } = require('../utils')
 
-
-
 class OrderBook {
   constructor (clientId) {
     this.clientId = clientId
@@ -24,7 +22,7 @@ class OrderBook {
     this._addHistory(order)
   }
 
-  processSellOrder (externalSellOrder) {
+  _processSellOrder (externalSellOrder) {
     const foundBuyOrder = this.buyOrders.find(buyOrder => {
       const { tickerSymbol, maxPrice } = buyOrder
 
@@ -47,7 +45,7 @@ class OrderBook {
     return null
   }
 
-  processBuyOrder (externalBuyOrder) {
+  _processBuyOrder (externalBuyOrder) {
     const foundSellOrder = this.sellOrders.find(buyOrder => {
       const { tickerSymbol, maxPrice: minPrice } = buyOrder
       return (tickerSymbol === externalBuyOrder.tickerSymbol &&
@@ -71,13 +69,13 @@ class OrderBook {
 
   processOrder (externalOrder) {
     if (externalOrder.type === ORDER_TYPES.SELL) {
-      this.processSellOrder()
+      this._processSellOrder(externalOrder)
     } else if (externalOrder.type === ORDER_TYPES.BUY) {
+      this._processBuyOrder(externalOrder)
 
     }
   }
 
-  _isOrderMatch (order) {}
 }
 
 class Transaction {
@@ -97,7 +95,7 @@ class Transaction {
 }
 
 class Order {
-  constructor (clientId, type, tickerSymbol, units, marketPrice,  goalPrice, status = 'New') {
+  constructor (clientId, type, tickerSymbol, units, marketPrice, goalPrice, status = 'New') {
     this.orderId = getUniqueId()
     this.clientId = clientId
     this.type = type
@@ -120,5 +118,5 @@ class Order {
 module.exports = {
   OrderBook,
   Order,
-  Transaction,
+  Transaction
 }
