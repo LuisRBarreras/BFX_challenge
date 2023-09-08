@@ -22,11 +22,12 @@ Just write everything down and indicate how you could solve them, given there wa
 
 
 ### Approach:
-Create a RPC Client and Server,
-The Server is  listing for an event PROCESS_ORDER, It has a list Order
-If the server received a order and found a match between the buy and sell
-  Should send the orderFound to the Client, The client has the OrderBook and  it's going to take care of process the order
-On this Scenario,  there is already a preload buy order, when executing the start:demo:client, its going to sent a sell order that is going to make the match if the preload order 
+- Create a RPC Client and Server,
+- The Server is  listing for an event PROCESS_ORDER, It has a list Order
+  If the server received a order and found a match between the buy and sell
+  Should send the orderFound to the Client, 
+- The client has the OrderBook and  it's going to take care of process the order
+- On this Scenario,  there is already a preload buy order, when executing the start:demo:client, its going to sent a sell order that is going to make the match if the preload order 
 
 
 
