@@ -1,9 +1,6 @@
-const { getUniqueId } = require("../utils")
+const { getUniqueId, ORDER_TYPES } = require('../utils')
 
-const ORDER_TYPES = {
-  SELL: 'SELL',
-  BUY: 'BUY'
-}
+
 
 class OrderBook {
   constructor (clientId) {
@@ -36,46 +33,46 @@ class OrderBook {
     })
 
     if (foundBuyOrder) {
-      const transaction =  new Transaction(foundBuyOrder, externalSellOrder, externalSellOrder.minPrice)
+      const transaction = new Transaction(foundBuyOrder, externalSellOrder, externalSellOrder.minPrice)
       this.history.push(transaction)
 
       // Delete order from buys
       this.buyOrders = this.buyOrders.filter(order => {
-        return (order.orderId !== foundBuyOrder.orderId) 
+        return (order.orderId !== foundBuyOrder.orderId)
       })
-      
-      return  transaction
+
+      return transaction
     }
-    
+
     return null
   }
-  
+
   processBuyOrder (externalBuyOrder) {
     const foundSellOrder = this.sellOrders.find(buyOrder => {
       const { tickerSymbol, maxPrice: minPrice } = buyOrder
       return (tickerSymbol === externalBuyOrder.tickerSymbol &&
-        externalBuyOrder.maxPrice  >= minPrice )
+        externalBuyOrder.maxPrice >= minPrice)
     })
 
     if (foundSellOrder) {
-      const transaction =  new Transaction(foundSellOrder, externalBuyOrder, externalBuyOrder.maxPrice)
+      const transaction = new Transaction(foundSellOrder, externalBuyOrder, externalBuyOrder.maxPrice)
       this.history.push(transaction)
 
       // Delete order from sell
       this.sellOrders = this.sellOrders.filter(order => {
-        return (order.orderId !== foundSellOrder.orderId) 
+        return (order.orderId !== foundSellOrder.orderId)
       })
-      
-      return  transaction
+
+      return transaction
     }
-    
+
     return null
   }
 
   processOrder (externalOrder) {
     if (externalOrder.type === ORDER_TYPES.SELL) {
       this.processSellOrder()
-    } else  if(externalOrder.type === ORDER_TYPES.BUY) {
+    } else if (externalOrder.type === ORDER_TYPES.BUY) {
 
     }
   }
@@ -90,7 +87,7 @@ class Transaction {
    */
   constructor (myOrder, externalOrder, settlementPrice) {
     // TODO check logic transaction id
-    this.transactionId =  getUniqueId()  
+    this.transactionId = getUniqueId()
     this.transactionDate = Date.now()
     this.externalClientId = externalOrder.clientId
     this.settlementPrice = settlementPrice
@@ -100,14 +97,13 @@ class Transaction {
 }
 
 class Order {
-  constructor (clientId, type, tickerSymbol, units, marketPrice, totalPrice, goalPrice, status = 'New') {
-    this.orderId = getUniqueId()  
+  constructor (clientId, type, tickerSymbol, units, marketPrice,  goalPrice, status = 'New') {
+    this.orderId = getUniqueId()
     this.clientId = clientId
     this.type = type
     this.tickerSymbol = tickerSymbol
     this.units = units
     this.marketPrice = marketPrice
-    this.totalPrice = totalPrice
     this.goalPrice = goalPrice
     this.status = status
     this.minPrice = null
@@ -122,5 +118,7 @@ class Order {
 }
 
 module.exports = {
-  OrderBook
+  OrderBook,
+  Order,
+  Transaction,
 }
